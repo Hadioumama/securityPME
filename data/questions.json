@@ -1,0 +1,380 @@
+{
+  "categories": [
+    {
+      "id": "cat1_contexte_et_criticite_du_syste",
+      "nom": "Contexte et criticité du système d'information",
+      "questions": [
+        {
+          "id": "cat1_q1",
+          "libelle": "Comment qualifiez-vous votre système d'information ?",
+          "type": "choix_unique",
+          "options": [
+            {
+              "texte": "Peu important : les activités principales de l'entreprise peuvent continuer même en cas d'indisponibilité.",
+              "score": 0
+            },
+            {
+              "texte": "Important pour certaines activités : le système d'information facilite la gestion des processus de l'entreprise.",
+              "score": 1
+            },
+            {
+              "texte": "Indispensable au fonctionnement de l'entreprise",
+              "score": 2
+            }
+          ],
+          "score_max": 2
+        },
+        {
+          "id": "cat1_q2",
+          "libelle": "Si votre système informatique devenait indisponible pendant plusieurs heures ou une journée, quel serait l'impact sur votre activité ?",
+          "type": "choix_unique",
+          "options": [
+            {
+              "texte": "L'activité de l'entreprise continuerait normalement.",
+              "score": 0
+            },
+            {
+              "texte": "L'activité serait légèrement perturbée, mais reprendrait rapidement sans impact majeur.",
+              "score": 1
+            },
+            {
+              "texte": "L'activité serait totalement ou presque totalement interrompue.",
+              "score": 2
+            }
+          ],
+          "score_max": 2
+        },
+        {
+          "id": "cat1_q3",
+          "libelle": "Si vos données étaient modifiées, quel serait l'impact sur votre entreprise ?",
+          "type": "choix_unique",
+          "options": [
+            {
+              "texte": "Cette situation aurait peu ou pas d'impact.",
+              "score": 0
+            },
+            {
+              "texte": "Les activités de l'entreprise seraient fortement perturbées jusqu'à la restauration des données.",
+              "score": 1
+            },
+            {
+              "texte": "Les conséquences seraient critiques : arrêt d'activité, perte de clients, perte financière.",
+              "score": 2
+            }
+          ],
+          "score_max": 2
+        },
+        {
+          "id": "cat1_q4",
+          "libelle": "Comment qualifieriez-vous l'organisation de votre système informatique ?",
+          "type": "choix_unique",
+          "options": [
+            {
+              "texte": "Le système est simple, homogène et facile à administrer.",
+              "score": 0
+            },
+            {
+              "texte": "Le système comporte quelques technologies différentes mais reste relativement simple à gérer.",
+              "score": 1
+            },
+            {
+              "texte": "Le système est composé de plusieurs applications et technologies différentes nécessitant une gestion plus complexe.",
+              "score": 2
+            }
+          ],
+          "score_max": 2
+        }
+      ]
+    },
+    {
+      "id": "cat2_developpement_securise_et_prot",
+      "nom": "Développement sécurisé et protection des données",
+      "questions": [
+        {
+          "id": "cat2_q1",
+          "libelle": "La cybersécurité est-elle prise en compte dans vos projets informatiques ?",
+          "type": "choix_unique",
+          "options": [
+            {
+              "texte": "NON",
+              "score": 0
+            },
+            {
+              "texte": "OUI",
+              "score": 1
+            }
+        ],
+          "score_max": 1
+        },
+        {
+            "id": "cat2_q2",
+          "libelle": "Comment les données sensibles sont-elles protégées ?",
+          "type": "choix_unique",
+            "options": [
+            {
+              "texte": "Aucune mesure de protection spécifique n'est appliquée.",
+              "score": 0
+            },
+            {
+              "texte": "Quelques mécanismes existent mais restent limités.",
+              "score": 1
+            },
+            {
+              "texte": "Le chiffrement et la gestion des clés sont utilisés selon des procédures définies.",
+              "score": 2
+            }
+              ],
+          "score_max": 2
+        },
+        {
+          "id": "cat2_q3",
+          "libelle": "Une procédure est-elle définie pour signaler et traiter les incidents de cybersécurité (ex. : virus, phishing, perte de données) ?",
+          "type": "choix_unique",
+            "options": [
+            {
+              "texte": "NON",
+              "score": 0
+            },
+            {
+              "texte": "OUI",
+              "score": 1
+            }
+          ],
+          "score_max": 1
+        },
+        {
+          "id": "cat2_q4",
+          "libelle": "Des réunions ou revues sont-elles organisées régulièrement pour suivre les questions liées à la cybersécurité ?",
+          "type": "choix_unique",
+            "options": [
+            {
+              "texte": "NON",
+              "score": 0
+            },
+            {
+              "texte": "OUI",
+              "score": 1
+            }
+          ],
+          "score_max": 1
+        }
+      ]
+    },
+       {
+      "id": "cat3_gestion_des_risques",
+      "nom": "Gestion des risques",
+      "questions": [
+          {
+          "id": "cat3_q1",
+          "libelle": "Votre entreprise identifie-t-elle régulièrement les risques pouvant affecter ses systèmes d'information et ses données ?",
+          "type": "choix_unique",
+              "options": [
+            {
+              "texte": "NON",
+              "score": 0
+            },
+            {
+              "texte": "OUI",
+              "score": 1
+            }
+          ],
+          "score_max": 1
+        },
+         {
+          "id": "cat3_q2",
+          "libelle": "Les risques identifiés sont-ils documentés dans un registre ou un document de suivi ?",
+          "type": "choix_unique",
+            "options": [
+            {
+              "texte": "NON",
+              "score": 0
+            },
+            {
+              "texte": "OUI",
+              "score": 1
+            }
+          ],
+           "score_max": 1
+        },
+        {
+          "id": "cat3_q3",
+          "libelle": "Un plan d'action est-il défini pour réduire ou maîtriser les risques identifiés?",
+          "type": "choix_unique",
+            "options": [
+            {
+              "texte": "NON",
+              "score": 0
+            },
+            {
+              "texte": "OUI",
+              "score": 1
+            }
+          ],
+          "score_max": 1
+        },
+          {
+          "id": "cat3_q4",
+          "libelle": "Votre entreprise évalue-t-elle les risques avant l'intégration d'un nouveau logiciel, équipement ou service informatique ?",
+          "type": "choix_unique",
+          "options": [
+            {
+              "texte": "NON",
+              "score": 0
+            },
+            {
+              "texte": "OUI",
+              "score": 1
+            }
+          ],
+          "score_max": 1
+        }
+      ]
+    },
+    {
+      "id": "cat4_gouvernance_organisation_et_se",
+      "nom": "Gouvernance, organisation et sensibilisation à la cybersécurité",
+      "questions": [
+        {
+          "id": "cat4_q1",
+          "libelle": "Les nouveaux collaborateurs reçoivent-ils une sensibilisation aux règles de cybersécurité lors de leur intégration ?",
+          "type": "choix_unique",
+          "options": [
+            {
+              "texte": "NON",
+              "score": 0
+            },
+            {
+              "texte": "OUI",
+              "score": 1
+            }
+          ],
+          "score_max": 1
+        },
+        {
+          "id": "cat4_q2",
+          "libelle": "Votre entreprise organise-t-elle régulièrement des actions de sensibilisation ou de formation en cybersécurité ?",
+          "type": "choix_unique",
+          "options": [
+            {
+              "texte": "NON",
+              "score": 0
+            },
+            {
+              "texte": "OUI",
+              "score": 1
+            }
+          ],
+          "score_max": 1
+        },
+        {
+          "id": "cat4_q3",
+          "libelle": "L'efficacité des actions de sensibilisation est-elle évaluée (quiz, tests, questionnaires, etc.) ?",
+          "type": "choix_unique",
+          "options": [
+            {
+              "texte": "NON",
+              "score": 0
+            },
+            {
+              "texte": "OUI",
+              "score": 1
+            }
+          ],
+          "score_max": 1
+        },
+        {
+          "id": "cat4_q4",
+          "libelle": "Les collaborateurs savent-ils comment signaler un incident ou un comportement suspect lié à la cybersécurité ?",
+          "type": "choix_unique",
+          "options": [
+            {
+              "texte": "NON",
+              "score": 0
+            },
+            {
+              "texte": "OUI",
+              "score": 1
+            }
+          ],
+          "score_max": 1
+        },
+        {
+          "id": "cat4_q5",
+          "libelle": "Votre entreprise dispose-t-elle d'une politique de cybersécurité?",
+          "type": "choix_unique",
+          "options": [
+            {
+              "texte": "NON",
+              "score": 0
+            },
+            {
+              "texte": "OUI",
+              "score": 1
+            }
+          ],
+          "score_max": 1
+        },
+        {
+          "id": "cat4_q6",
+          "libelle": "La politique de cybersécurité est-elle révisée et mise à jour régulièrement ?",
+          "type": "choix_unique",
+          "options": [
+            {
+              "texte": "NON",
+              "score": 0
+            },
+            {
+              "texte": "OUI",
+              "score": 1
+            }
+          ],
+          "score_max": 1
+        },
+        {
+          "id": "cat4_q7",
+          "libelle": "Une personne ou une équipe est-elle officiellement responsable de la cybersécurité dans votre entreprise ?",
+          "type": "choix_unique",
+          "options": [
+            {
+              "texte": "NON",
+              "score": 0
+            },
+            {
+              "texte": "OUI",
+              "score": 1
+            }
+          ],
+          "score_max": 1
+        },
+        {
+          "id": "cat4_q8",
+          "libelle": "L'organisation de la cybersécurité est-elle régulièrement évaluée et améliorée ?",
+          "type": "choix_unique",
+          "options": [
+            {
+              "texte": "NON",
+              "score": 0
+            },
+            {
+              "texte": "OUI",
+              "score": 1
+            }
+          ],
+          "score_max": 1
+        }
+      ]
+    }
+    ]
+
+}
+
+
+
+
+
+
+
+
+
+
+
