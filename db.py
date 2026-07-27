@@ -93,20 +93,20 @@ def enregistrer_evaluation_complete(pme_id,resultats,reponses):
             (pme_id, resultats["score_global"], resultats["niveau_maturite"])
         )
         connexion.commit()
-        evaluation_id = curseur.lastrowid
+        diagnostic_id = curseur.lastrowid
         for categorie_id, data in resultats["scores_categories"].items():
            curseur.execute(
             """INSERT INTO score_categorie (diagnostic_id, categorie_id, categorie_nom, score)
                VALUES (%s, %s, %s, %s)""",
-            (evaluation_id, categorie_id, data["nom"], data["score"])
+            (diagnostic_id, categorie_id, data["nom"], data["score"])
 
            )
         for question_id,score_obtenu in reponses.items():
-            curseur.execute("INSERT INTO reponse(diagnostic_id,question_id,score) VALUES (%s,%s,%s)"
-                            (evaluation_id, question_id, score_obtenu)
+            curseur.execute("INSERT INTO reponse(diagnostic_id,question_id,score) VALUES (%s,%s,%s)",
+                            (diagnostic_id, question_id, score_obtenu)
                             )
         connexion.commit()
-        return evaluation_id
+        return diagnostic_id
     except Error as e:
         print(f"Erreur lors de l'enregistrement de l'évaluation :{e}")
         connexion.rollback()
