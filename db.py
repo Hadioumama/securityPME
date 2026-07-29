@@ -102,7 +102,7 @@ def enregistrer_evaluation_complete(pme_id,resultats,reponses):
 
            )
         for question_id,score_obtenu in reponses.items():
-            curseur.execute("INSERT INTO reponse(diagnostic_id,question_id,score) VALUES (%s,%s,%s)",
+            curseur.execute("INSERT INTO reponse(diagnostic_id,question_id,score_obtenu) VALUES (%s,%s,%s)",
                             (diagnostic_id, question_id, score_obtenu)
                             )
         connexion.commit()
