@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
+
 from scoring import charger_questions,calculer_scores_globaux,identifier_categories_faibles
 from db import inscrire_pme,connecter_pme,enregistrer_evaluation_complete
+from assistant_ai import generer_recommandations
+from db import enregistrer_recommandation, recuperer_recommandation
 st.set_page_config(page_title="Diagnostic Maturité Cyber PME", page_icon="🛡️", layout="centered")
 @st.cache_data
 def get_categories():
@@ -154,15 +157,13 @@ elif 1<= st.session_state.etape <= nb_categories:
 
 else:
     st.title("📊 Résultats de votre diagnostic")
-    st.subheader(f"Entreprise:{st.session_state.nom_pme}")
+    st.subheader(f"Entreprise: {st.session_state.pme['nom']}")
 
     resultats=calculer_scores_globaux(categories,st.session_state.reponses)
-
     score_global=resultats["score_global"]
     niveau=resultats["niveau_maturite"]
-
     if "deja_enregistre" not in st.session_state:
-        pme_id=st.session_state.pme["id"]
+        pme_id = st.session_state.pme["id"]
         diagnostic_id = enregistrer_evaluation_complete(
             pme_id=pme_id,
             resultats=resultats,
@@ -170,20 +171,22 @@ else:
         )
 
         if diagnostic_id is not None:
-            st.session_state.deja_enregistre= True
+            st.session_state.deja_enregistre = True
+            st.session_state.diagnostic_id = diagnostic_id
             st.toast("✅ Résultats enregistrés dans la base de données", icon="💾")
         else:
             st.warning("⚠️ Impossible d'enregistrer les résultats en base (voir la console pour le détail).")
-
-    couleurs_niveau={
+    couleurs_niveau = {
         "Faible": "🔴",
         "Moyen": "🟠",
         "Bon": "🟢",
         "Excellent": "🟢"
     }
+    st.metric(label="Score global de maturité", value=f"{score_global}/100")
+    st.markdown(f"Niveau de maturité :{couleurs_niveau[niveau]} **{niveau}**")
 
-    st.metric(label="Score global de maturité",value=f"{score_global}/100")
-    st.markdown(f"Niveau de maturité : {couleurs_niveau[niveau]} **{niveau}**")
+
+
 
     st.divider()
     st.subheader("Détail par catégorie")
@@ -206,9 +209,42 @@ else:
             st.write(f"⚠️ **{cat}** — nécessite des actions correctives")
     else:
         st.success("Aucune catégorie critique détectée.")
+    categories_faibles = identifier_categories_faibles(resultats["scores_categories"], seuil=60)
+
+    st.divider()
+    st.subheader("🤖 Recommandations personnalisées")
+
+    if "diagnostic_id" in st.session_state:
+        if "recommandation_texte" not in st.session_state:
+            recommandation_existante = recuperer_recommandation(st.session_state.diagnostic_id)
+            if recommandation_existante:
+                st.session_state.recommandation_texte = recommandation_existante
+            else:
+                with st.spinner("Génération des recommandations en cours..."):
+                    succes, texte = generer_recommandations(
+                        nom_pme=st.session_state.pme["nom"],
+                        secteur_activite=st.session_state.pme.get("secteur", ""),
+                        resultats=resultats,
+                        categories_faibles=categories_faibles,
+                        categories=categories,
+                        reponses=st.session_state.reponses
+                    )
+                if succes:
+                    st.session_state.recommandation_texte = texte
+                    enregistrer_recommandation(st.session_state.diagnostic_id, texte)
+                else:
+                    st.session_state.recommandation_texte = None
+                    st.error(f"Impossible de générer les recommandations : {texte}")
+
+        if st.session_state.get("recommandation_texte"):
+            st.markdown(st.session_state.recommandation_texte)
+        else:
+            st.info("Les recommandations n'ont pas pu être générées pour ce diagnostic.")
 
     st.divider()
     if st.button("🔄 Refaire le diagnostic"):
+        st.session_state.pop("diagnostic_id", None)
+        st.session_state.pop("recommandation_texte", None)
         st.session_state.etape = 0
         st.session_state.reponses={}
         st.session_state.nom_pme=""

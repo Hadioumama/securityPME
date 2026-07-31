@@ -135,7 +135,51 @@ def recupurer_historique_pme(pme_id):
         curseur.close()
         connexion.close()
 
+def enregistrer_recommandation(diagnostic_id, contenu):
+    connexion = connecter()
+    if connexion is None:
+        return None
 
+    curseur = None
+    try:
+        curseur = connexion.cursor()
+        curseur.execute(
+            "INSERT INTO recommandation (diagnostic_id, contenu) VALUES (%s, %s)",
+            (diagnostic_id, contenu)
+        )
+        connexion.commit()
+        return curseur.lastrowid
+    except Error as e:
+        print(f"Erreur lors de l'enregistrement de la recommandation : {e}")
+        connexion.rollback()
+        return None
+    finally:
+        if curseur is not None:
+            curseur.close()
+        connexion.close()
+
+
+def recuperer_recommandation(diagnostic_id):
+    connexion = connecter()
+    if connexion is None:
+        return None
+
+    curseur = None
+    try:
+        curseur = connexion.cursor(dictionary=True)
+        curseur.execute(
+            "SELECT contenu FROM recommandation WHERE diagnostic_id = %s ORDER BY date_generation DESC LIMIT 1",
+            (diagnostic_id,)
+        )
+        resultat = curseur.fetchone()
+        return resultat["contenu"] if resultat else None
+    except Error as e:
+        print(f"Erreur lors de la récupération de la recommandation : {e}")
+        return None
+    finally:
+        if curseur is not None:
+            curseur.close()
+        connexion.close()
 
 
 
