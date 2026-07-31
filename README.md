@@ -13,6 +13,7 @@ Cette plateforme permet aux PME marocaines d'évaluer leur niveau de maturité e
 - Calcul des scores par catégorie
 - Détermination du niveau de maturité
 - Affichage des résultats
+- recommandations personnalisés
 - Enregistrement des résultats dans MySQL
 
 ## Technologies utilisées
