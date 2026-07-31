@@ -122,12 +122,16 @@ elif 1<= st.session_state.etape <= nb_categories:
                     index_par_defaut=i
                     break
 
+        st.markdown(
+            f"<h4>{question['libelle']}</h4>",
+            unsafe_allow_html=True
+        )
         choix_texte = st.radio(
-            label=question["libelle"],
+            label="",
             options=textes_options,
             index=index_par_defaut,
-            key=f"radio_{q_id}"
-
+            key=f"radio_{q_id}",
+            label_visibility="collapsed"
         )
         if choix_texte is not None:
             score_choisi=next(opt["score"] for opt in option if opt["texte"]==choix_texte)
