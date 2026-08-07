@@ -1,8 +1,10 @@
 import os
 from dotenv import load_dotenv
+from pathlib import Path
 from groq import Groq
 
-load_dotenv()
+CHEMIN_ENV = Path(__file__).resolve().parent / ".env"
+load_dotenv(dotenv_path=CHEMIN_ENV)
 
 MODELE_IA = "llama-3.3-70b-versatile"
 

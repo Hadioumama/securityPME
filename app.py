@@ -1,10 +1,14 @@
 import streamlit as st
 import pandas as pd
 
+
 from scoring import charger_questions,calculer_scores_globaux,identifier_categories_faibles
 from db import inscrire_pme,connecter_pme,enregistrer_evaluation_complete
 from assistant_ai import generer_recommandations
 from db import enregistrer_recommandation, recuperer_recommandation
+from rapport_pdf import generer_rapport_pdf
+import tempfile
+import os
 st.set_page_config(page_title="Diagnostic Maturité Cyber PME", page_icon="🛡️", layout="centered")
 @st.cache_data
 def get_categories():
@@ -254,26 +258,27 @@ else:
         st.session_state.nom_pme=""
         st.session_state.pop("deja_enregistre",None)
 
+st.divider()
+st.subheader("📄 Télécharger le rapport")
+
+if st.button("Générer le rapport PDF"):
+    with st.spinner("Génération du PDF en cours...."):
+        chemin_temp=os.path.join(tempfile.gettempdir(),"rapport_diagnostic.pdf")
+        generer_rapport_pdf(
+            chemin_sortie=chemin_temp,
+            nom_pme=st.session_state.pme["nom"],
+            secteur_activite=st.session_state.pme.get("secteur",""),
+            resultats=resultats,
+        )
+        with open(chemin_temp,"rb") as f:
+            st.session_state.pdf_bytes=f.read()
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if "pdf_bytes" in st.session_state:
+    nom_fichier = f"rapport_maturite_{st.session_state.pme['nom'].replace(' ', '_')}.pdf"
+    st.download_button(
+        label="⬇️ Télécharger le rapport PDF",
+        data=st.session_state.pdf_bytes,
+        file_name=nom_fichier,
+        mime="application/pdf"
+    )
