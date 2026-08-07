@@ -250,35 +250,38 @@ else:
             st.info("Les recommandations n'ont pas pu être générées pour ce diagnostic.")
 
     st.divider()
-    if st.button("🔄 Refaire le diagnostic"):
-        st.session_state.pop("diagnostic_id", None)
-        st.session_state.pop("recommandation_texte", None)
-        st.session_state.etape = 0
-        st.session_state.reponses={}
-        st.session_state.nom_pme=""
-        st.session_state.pop("deja_enregistre",None)
 
-st.divider()
-st.subheader("📄 Télécharger le rapport")
+    col_pdf, col_refaire = st.columns(2)
 
-if st.button("Générer le rapport PDF"):
-    with st.spinner("Génération du PDF en cours...."):
-        chemin_temp=os.path.join(tempfile.gettempdir(),"rapport_diagnostic.pdf")
-        generer_rapport_pdf(
-            chemin_sortie=chemin_temp,
-            nom_pme=st.session_state.pme["nom"],
-            secteur_activite=st.session_state.pme.get("secteur",""),
-            resultats=resultats,
-        )
-        with open(chemin_temp,"rb") as f:
-            st.session_state.pdf_bytes=f.read()
+    with col_pdf:
+        if st.button("Générer le rapport PDF"):
+            with st.spinner("Génération du PDF en cours..."):
+                chemin_temp = os.path.join(tempfile.gettempdir(), "rapport_diagnostic.pdf")
+                generer_rapport_pdf(
+                    chemin_sortie=chemin_temp,
+                    nom_pme=st.session_state.pme["nom"],
+                    secteur_activite=st.session_state.pme.get("secteur", ""),
+                    resultats=resultats,
+                )
+                with open(chemin_temp, "rb") as f:
+                    st.session_state.pdf_bytes = f.read()
 
+        if "pdf_bytes" in st.session_state:
+            nom_fichier = f"rapport_maturite_{st.session_state.pme['nom'].replace(' ', '_')}.pdf"
+            st.download_button(
+                label="⬇️ Télécharger le rapport PDF",
+                data=st.session_state.pdf_bytes,
+                file_name=nom_fichier,
+                mime="application/pdf"
+            )
 
-if "pdf_bytes" in st.session_state:
-    nom_fichier = f"rapport_maturite_{st.session_state.pme['nom'].replace(' ', '_')}.pdf"
-    st.download_button(
-        label="⬇️ Télécharger le rapport PDF",
-        data=st.session_state.pdf_bytes,
-        file_name=nom_fichier,
-        mime="application/pdf"
-    )
+    with col_refaire:
+        if st.button("🔄 Refaire le diagnostic"):
+            st.session_state.pop("diagnostic_id", None)
+            st.session_state.pop("recommandation_texte", None)
+            st.session_state.pop("pdf_bytes", None)
+            st.session_state.etape = 0
+            st.session_state.reponses = {}
+            st.session_state.nom_pme = ""
+            st.session_state.pop("deja_enregistre", None)
+            st.rerun()
