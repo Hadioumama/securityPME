@@ -15,7 +15,7 @@ Cette plateforme permet aux PME marocaines d'évaluer leur niveau de maturité e
 - Affichage des résultats
 - recommandations personnalisés
 - Enregistrement des résultats dans MySQL
-
+- Génération du rapport PDF de diagnostic
 ## Technologies utilisées
 
 - Python
