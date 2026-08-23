@@ -6,7 +6,7 @@ from groq import Groq
 CHEMIN_ENV = Path(__file__).resolve().parent / ".env"
 load_dotenv(dotenv_path=CHEMIN_ENV)
 
-MODELE_IA = "llama-3.3-70b-versatile"
+MODELE_IA = "openai/gpt-oss-120b"
 
 
 def construire_prompt(nom_pme, secteur_activite, resultats, categories_faibles, categories, reponses):
@@ -45,7 +45,12 @@ contexte marocain (PME, ressources limitées). Structure ta réponse ainsi:
 3. Une recommandation générale d'organisation
 
 Reste concret, évite le jargon technique inutile, et adapte le ton pour un dirigeant de PME
-qui n'est pas un expert en cybersécurité. Sois bref et concis."""
+qui n'est pas un expert en cybersécurité. Sois bref et concis.
+FORMAT DE SORTIE OBLIGATOIRE :
+- Ne mets pas de HTML dans les cellules du tableau.
+- N'utilise jamais <br>, <br/>, <br /> ou \ <br>.
+- Sois bref et concis.
+"""
 
     return prompt
 

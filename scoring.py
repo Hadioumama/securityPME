@@ -70,7 +70,7 @@ def determiner_niveau_maturite(score_global):
         elif score_global <85:
             return "Bon"
         else:
-            return "Excelent"
+            return "Excellent"
 
 def identifier_categories_faibles(scores_categories,seuil=60):
     faibles=[]
