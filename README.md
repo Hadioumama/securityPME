@@ -37,7 +37,4 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
-## Auteur
 
-Hadi Oumama  
-Élève ingénieur – ENSAH
